@@ -1,0 +1,966 @@
+{
+  "trip": {
+    "name": "China 2026",
+    "destination": "Pekín, Zhangjiajie, Fenghuang, Guilin y Shanghái",
+    "startDate": "2026-05-30",
+    "endDate": "2026-06-14",
+    "currency": "EUR",
+    "status": "completed",
+    "description": "Viaje importado como ejemplo a partir del Excel actual.",
+    "coverEmoji": "🇨🇳"
+  },
+  "travelers": [
+    {
+      "name": "Xavi",
+      "isDefault": true
+    },
+    {
+      "name": "Judit"
+    }
+  ],
+  "activities": [
+    {
+      "key": "flight_bcn_pekin",
+      "date": "2026-05-30",
+      "title": "Vuelo Barcelona → Pekín",
+      "startTime": "10:55",
+      "type": "flight",
+      "description": "Noche a bordo. Escala en Shanghái.",
+      "reservationStatus": "paid"
+    },
+    {
+      "key": "arrival_beijing",
+      "date": "2026-05-31",
+      "title": "Llegada a Pekín",
+      "startTime": "10:25",
+      "type": "flight",
+      "location": "Beijing Capital International Airport",
+      "description": "Recogida prevista a las 10:55 y traslado al hotel.",
+      "reservationStatus": "reserved"
+    },
+    {
+      "date": "2026-05-31",
+      "title": "Qianmen, Dashilan y Tiananmen",
+      "type": "visit",
+      "location": "Qianmen, Beijing",
+      "description": "Dejar las maletas, comer por la zona y pasear por Qianmen Street, Dashilan y el exterior de Tiananmen."
+    },
+    {
+      "date": "2026-05-31",
+      "title": "Atardecer en Jingshan Park",
+      "type": "nature",
+      "location": "Jingshan Park, Beijing"
+    },
+    {
+      "key": "great_wall",
+      "date": "2026-06-01",
+      "title": "Gran Muralla de Mutianyu",
+      "startTime": "07:00",
+      "type": "visit",
+      "location": "Mutianyu",
+      "description": "Salir en Didi o transfer. Entrada, shuttle, telesilla y tobogán se reservan por separado.",
+      "reservationStatus": "pending"
+    },
+    {
+      "key": "forbidden_city",
+      "date": "2026-06-02",
+      "title": "Ciudad Prohibida",
+      "startTime": "09:00",
+      "type": "visit",
+      "location": "Forbidden City, Beijing",
+      "description": "Entrar por Zhongshan Park y acercarse a Meridian Gate.",
+      "reservationStatus": "paid",
+      "price": 28.44,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "activities"
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Hutongs y Shichahai",
+      "type": "visit",
+      "location": "Shichahai, Beijing",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Templo de los Lamas",
+      "type": "visit",
+      "location": "Yonghe Temple, Beijing",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Templo del Cielo",
+      "type": "visit",
+      "location": "Temple of Heaven, Beijing",
+      "alternative": true
+    },
+    {
+      "key": "flight_zhangjiajie",
+      "date": "2026-06-03",
+      "title": "Vuelo Pekín → Zhangjiajie",
+      "startTime": "13:40",
+      "endTime": "16:10",
+      "type": "flight",
+      "reservationStatus": "paid",
+      "price": 379.84,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "flights"
+    },
+    {
+      "date": "2026-06-03",
+      "title": "Paseo por Wulingyuan",
+      "type": "visit",
+      "location": "Wulingyuan",
+      "description": "Plan tranquilo para la tarde después de llegar."
+    },
+    {
+      "key": "zhangjiajie_park",
+      "date": "2026-06-04",
+      "title": "Zhangjiajie National Forest Park",
+      "type": "nature",
+      "location": "Wulingyuan",
+      "description": "Montañas de Avatar, ascensor Bailong, Tianzi y puente de cristal."
+    },
+    {
+      "key": "tianmen",
+      "date": "2026-06-05",
+      "title": "Montaña Tianmen",
+      "startTime": "07:30",
+      "type": "nature",
+      "location": "Tianmen Mountain",
+      "description": "Dejar mochilas en los lockers de la estación y visitar la Puerta del Cielo."
+    },
+    {
+      "date": "2026-06-05",
+      "title": "Tren Zhangjiajie → Fenghuang",
+      "startTime": "17:45",
+      "endTime": "18:44",
+      "type": "train",
+      "reservationStatus": "paid"
+    },
+    {
+      "date": "2026-06-05",
+      "title": "Fenghuang iluminado",
+      "type": "visit",
+      "location": "Fenghuang Ancient Town",
+      "description": "Paseo nocturno por el casco antiguo."
+    },
+    {
+      "date": "2026-06-06",
+      "title": "Mañana libre en Fenghuang",
+      "type": "visit",
+      "location": "Fenghuang"
+    },
+    {
+      "date": "2026-06-06",
+      "title": "Tren Fenghuang → Guilin",
+      "startTime": "13:00",
+      "endTime": "18:24",
+      "type": "train",
+      "reservationStatus": "paid"
+    },
+    {
+      "date": "2026-06-06",
+      "title": "Cena de ganso asado",
+      "type": "food",
+      "location": "Chunji, Guilin",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-07",
+      "title": "Día libre en Guilin",
+      "type": "visit",
+      "location": "Guilin",
+      "description": "Paseos por los lagos y colinas cercanas."
+    },
+    {
+      "date": "2026-06-07",
+      "title": "Guilin Night Market",
+      "startTime": "19:00",
+      "type": "food",
+      "location": "Guilin"
+    },
+    {
+      "key": "li_river",
+      "date": "2026-06-08",
+      "title": "Crucero por el río Li hasta Yangshuo",
+      "startTime": "09:00",
+      "endTime": "13:30",
+      "type": "nature",
+      "location": "Guilin → Yangshuo",
+      "reservationStatus": "paid",
+      "price": 127.1,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "activities",
+      "ticketReference": "TEP997204"
+    },
+    {
+      "date": "2026-06-08",
+      "title": "Tiempo libre en Yangshuo",
+      "type": "nature",
+      "location": "Yangshuo"
+    },
+    {
+      "key": "flight_shanghai",
+      "date": "2026-06-09",
+      "title": "Vuelo Guilin → Shanghái",
+      "startTime": "10:00",
+      "endTime": "12:00",
+      "type": "flight",
+      "reservationStatus": "paid",
+      "price": 191.06,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "flights"
+    },
+    {
+      "date": "2026-06-09",
+      "title": "Pudong, Nanjing Road y North Bund",
+      "type": "visit",
+      "location": "Shanghai",
+      "description": "Rascacielos, paseo urbano y espectáculo de luces."
+    },
+    {
+      "date": "2026-06-10",
+      "title": "Shanghái tradicional y moderna",
+      "type": "visit",
+      "location": "Shanghai",
+      "description": "Jardín Yuyuan, Templo del Buda de Jade, ferry del Huangpu, Wukang Road y Anfu Road."
+    },
+    {
+      "date": "2026-06-11",
+      "title": "Excursión a Suzhou o Hangzhou",
+      "type": "visit",
+      "location": "Suzhou / Hangzhou",
+      "reservationStatus": "pending"
+    },
+    {
+      "date": "2026-06-11",
+      "title": "Free tour",
+      "startTime": "16:30",
+      "endTime": "19:00",
+      "type": "visit",
+      "location": "Shanghai",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-12",
+      "title": "Shanghái por decidir",
+      "type": "visit",
+      "location": "Shanghai",
+      "description": "Yu Garden, Qiuxia Garden, Green House Garden o People's Park."
+    },
+    {
+      "date": "2026-06-13",
+      "title": "Día libre en Shanghái",
+      "type": "visit",
+      "location": "Shanghai",
+      "description": "Compras o excursión a Zhujiajiao."
+    },
+    {
+      "date": "2026-06-13",
+      "title": "Cena de despedida",
+      "type": "food",
+      "location": "Shanghai",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-14",
+      "title": "Vuelo de regreso a Barcelona",
+      "startTime": "00:40",
+      "type": "flight",
+      "location": "Shanghai Pudong Airport",
+      "description": "Llegada prevista a Barcelona a las 08:05.",
+      "reservationStatus": "paid"
+    }
+  ],
+  "expenses": [
+    {
+      "description": "Vuelos Ida y vuelta",
+      "category": "flights",
+      "amount": 1278.08,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Traslado aeropuerto Pekin - hotel",
+      "category": "transport",
+      "amount": 15.32,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Hotel Lavande (3 noches)",
+      "category": "accommodation",
+      "amount": 180.5,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Taxi muralla china",
+      "category": "transport",
+      "amount": 112.9,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Hotel Hilton Zhangjiajie (2 noches)",
+      "category": "accommodation",
+      "amount": 72.0,
+      "currency": "EUR",
+      "paid": false
+    },
+    {
+      "description": "Tren Zhangijajie - Fenghung",
+      "category": "transport",
+      "amount": 27.42,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Hotel Fenghuang",
+      "category": "accommodation",
+      "amount": 40.38,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Tren Fenghung - Guilin",
+      "category": "transport",
+      "amount": 77.0,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Hotel Guilin",
+      "category": "accommodation",
+      "amount": 112.6,
+      "currency": "EUR",
+      "paid": true
+    },
+    {
+      "description": "Hotel Chalet Shanghai",
+      "category": "accommodation",
+      "amount": 355.15,
+      "currency": "EUR",
+      "paid": true
+    }
+  ],
+  "todos": [
+    {
+      "title": "Reservar Siji Minfu para comer pato laqueado",
+      "details": "Preferiblemente la sucursal de Qianmen.",
+      "priority": "normal",
+      "dueDate": "2026-05-30",
+      "items": [
+        "Comprobar reservas",
+        "Guardar dirección"
+      ]
+    },
+    {
+      "title": "Comprar entradas y transporte de Mutianyu",
+      "details": "Falta cerrar entrada, shuttle y telesilla/tobogán.",
+      "priority": "urgent",
+      "dueDate": "2026-05-25",
+      "activityKey": "great_wall",
+      "items": [
+        "Entrada a la muralla",
+        "Shuttle bus",
+        "Telesilla y tobogán"
+      ]
+    },
+    {
+      "title": "Confirmar excursión Suzhou o Hangzhou",
+      "priority": "high",
+      "dueDate": "2026-06-05",
+      "items": [
+        "Elegir destino",
+        "Comprar tren",
+        "Revisar traslado desde la estación"
+      ]
+    },
+    {
+      "title": "Descargar mapas offline y configurar apps",
+      "priority": "normal",
+      "dueDate": "2026-05-28",
+      "items": [
+        "Alipay",
+        "Didi",
+        "Amap",
+        "Trip.com"
+      ]
+    }
+  ],
+  "packing": [
+    {
+      "traveler": "Judit",
+      "name": "Pantalones",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Camisetas",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Sudaderas/Jerseys",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Ropa interior",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Pijama",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Calzado",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Chubasquero",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Gorra",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Gafas de sol",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Gafas/lentillas/liquido lentillas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Tiritas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Pastillas para la diarrea",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Ibuprofeno",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Pastillas para la diarrea",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Protector estomacal",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Repelente de mosquitos",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "paracetamol",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Mascariilas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Chanclas",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Bañador",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Toalla",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Crema solar",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Cepillo de dientes + pasta",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Protector labios",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Crema hidratante",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Peine",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Orinal mujer",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Kit menstruación",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Gomas de pelo",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Desodorante",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Pañuelos",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Tapones para los oídos",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Móvil",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Cargadores",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Auriculares",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Música",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Series/Pelis",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Pasaporte",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Dinero en moneda local destino",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Reservas de vuelos",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "billetes de tren",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Tarjeta sanitaria/seguro de viaje",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Tarjetas de crédito",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Guía del destino",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Judit",
+      "name": "Q-Code",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Pantalones",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Camisetas",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Sudaderas/Jerseys",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Ropa interior",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Pijama",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Cinturón",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Calzado",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Chubasquero",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Gorra",
+      "category": "Ropa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Gafas de sol",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Gafas/lentillas/liquido lentillas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Tiritas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Ibuprofeno",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Pastillas para la diarrea",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Protector estomacal",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Repelente de mosquitos",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "paracetamol",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Mascariilas",
+      "category": "Otros / Botiquín",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Chanclas",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Bañador",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Toalla",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Crema solar",
+      "category": "Playa",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Cepillo de dientes + pasta",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Desodorante",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "maquina de afeitar y cargador",
+      "category": "Neceser",
+      "luggageType": "checked"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Móvil",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Cargadores (movil, reloj)",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Auriculares",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Música",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Series/Pelis",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Bateris externa",
+      "category": "Tecnología / Ocio",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Pasaporte",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Dinero en moneda local destino",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Reservas de vuelos",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "billetes de tren",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Tarjeta sanitaria/seguro de viaje",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Tarjetas de crédito",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Guía del destino",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    },
+    {
+      "traveler": "Xavi",
+      "name": "Q-Code",
+      "category": "Documentacion",
+      "luggageType": "carry_on"
+    }
+  ],
+  "resources": [
+    {
+      "type": "transport",
+      "title": "Fenghuang: estación → centro",
+      "details": "Bus aproximado 1 € o tren magnético aproximado 4 €."
+    },
+    {
+      "type": "transport",
+      "title": "Zhangjiajie centro → estación de tren",
+      "details": "En Didi son aproximadamente 20 minutos."
+    },
+    {
+      "type": "note",
+      "title": "Acceso a Ciudad Prohibida",
+      "details": "07:45 salir del hotel · 08:15 entrar en Zhongshan Park · 08:30 acercarse a Meridian Gate · 09:00 entrada a la Ciudad Prohibida.",
+      "date": "2026-06-02"
+    },
+    {
+      "type": "link",
+      "title": "Traslado aeropuerto de Pekín al hotel",
+      "url": "https://www.trip.com/airport-transfers/detail?oid=1688896027622835&locale=es-ES&fromid=T108011&wkp=1",
+      "date": "2026-05-31"
+    },
+    {
+      "type": "link",
+      "title": "Mapa de Tianmen Mountain",
+      "url": "https://www.locosxperderse.com/wp-content/uploads/2026/01/tianmen-mountain-map.webp",
+      "date": "2026-06-05"
+    },
+    {
+      "type": "note",
+      "title": "Ruta temporal de Tianmen Mountain",
+      "details": "Teleférico hasta la estación intermedia, autobús hasta Tianmen Cave, escaleras mecánicas a la cima, visita y regreso por la misma combinación.",
+      "url": "https://www.locosxperderse.com/montana-tianmen/",
+      "date": "2026-06-05"
+    },
+    {
+      "type": "app",
+      "title": "Alipay",
+      "details": "para pagar"
+    },
+    {
+      "type": "app",
+      "title": "Didi",
+      "details": "para reservar taxis (tipo uber)"
+    },
+    {
+      "type": "app",
+      "title": "amap",
+      "details": "mapas"
+    },
+    {
+      "type": "app",
+      "title": "trip",
+      "details": "para reservar trenes /vuelos"
+    },
+    {
+      "type": "app",
+      "title": "lockers",
+      "details": "Alipay - It's under \"more services\" -> \"Entry utility\" -> LuggaGo"
+    }
+  ]
+}

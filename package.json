@@ -1,0 +1,17 @@
+{
+  "name": "tripflow-travel-manager",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aplicación web para gestionar itinerarios, gastos, TODOs, maletas e información de viajes.",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "dev": "node --no-warnings --watch server.js",
+    "test": "NODE_NO_WARNINGS=1 node --test",
+    "check": "node --check server.js && node --check src/app.js && node --check src/database.js && node --check src/repository.js && node --check public/app.js",
+    "reset-db": "node scripts/reset-db.js"
+  }
+}

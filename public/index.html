@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f6f78">
+  <meta name="app-base" content="__BASE_PATH__">
+  <title>TripFlow · Gestión de viajes</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">TF</div>
+        <div>
+          <strong>TripFlow</strong>
+          <span>Gestión de viajes</span>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="Secciones">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span>Resumen</button>
+        <button class="nav-item" data-view="itinerary"><span>▦</span>Itinerario</button>
+        <button class="nav-item" data-view="expenses"><span>€</span>Gastos</button>
+        <button class="nav-item" data-view="todos"><span>✓</span>TODO</button>
+        <button class="nav-item" data-view="packing"><span>▣</span>Maletas</button>
+        <button class="nav-item" data-view="resources"><span>⌘</span>Información</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="mini-note">Los precios de actividades y TODOs se sincronizan automáticamente con Gastos.</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="mobileMenu" aria-label="Abrir menú">☰</button>
+        <div class="trip-switcher">
+          <label for="tripSelect">Viaje</label>
+          <select id="tripSelect"></select>
+        </div>
+        <div class="topbar-actions">
+          <button class="button ghost" id="editTripButton">Editar viaje</button>
+          <button class="button primary" id="newTripButton">+ Nuevo viaje</button>
+        </div>
+      </header>
+
+      <section class="content" id="content">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Cargando el viaje…</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <form method="dialog" class="modal-card" id="modalCard">
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow" id="modalEyebrow"></p>
+          <h2 id="modalTitle"></h2>
+        </div>
+        <button type="button" class="icon-button" id="modalClose" aria-label="Cerrar">×</button>
+      </header>
+      <div class="modal-body" id="modalBody"></div>
+      <footer class="modal-footer" id="modalFooter"></footer>
+    </form>
+  </dialog>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
