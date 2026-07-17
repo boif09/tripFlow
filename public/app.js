@@ -247,10 +247,18 @@ function renderItinerary() {
   const { trip, activities } = state.bundle;
   const dates = daysBetween(trip.startDate, trip.endDate);
   const today = new Date().toISOString().slice(0, 10);
+  const firstDayColumn = dates.length
+    ? ((new Date(`${dates[0]}T00:00:00`).getDay() + 6) % 7) + 1
+    : 1;
   return `
     ${pageHeader('Itinerario', 'Arrastra los planes entre días o hacia la zona de planes alternativos.', '<button class="button primary" id="addActivity">+ Añadir actividad</button>')}
     <div class="itinerary-wrap">
+      <div class="itinerary-weekdays" aria-hidden="true">
+        ${['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+          .map((weekday) => `<span>${weekday}</span>`).join('')}
+      </div>
       <div class="itinerary-grid">
+        ${Array.from({ length: firstDayColumn - 1 }, () => '<span class="itinerary-spacer" aria-hidden="true"></span>').join('')}
         ${dates.map((date, index) => {
           const main = activities.filter((item) => item.date === date && !item.alternative);
           const alternatives = activities.filter((item) => item.date === date && item.alternative);
