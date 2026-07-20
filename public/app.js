@@ -285,13 +285,18 @@ function renderItinerary() {
 }
 
 function activityCard(activity) {
+  const interestUrl = safeExternalUrl(activity.interestUrl);
+  const bookingUrl = safeExternalUrl(activity.bookingUrl);
   return `
     <article class="activity-card" draggable="true" data-id="${activity.id}">
       ${activity.startTime ? `<span class="activity-time">${activity.startTime}${activity.endTime ? `–${activity.endTime}` : ''}</span>` : ''}
       <h4>${activityIcon(activity.type)} ${escapeHTML(activity.title)}</h4>
       ${activity.location ? `<p>📍 ${escapeHTML(activity.location)}</p>` : ''}
+      ${interestUrl || bookingUrl ? `<div class="activity-links">
+        ${interestUrl ? `<a href="${attr(interestUrl)}" target="_blank" rel="noopener noreferrer" title="Abrir enlace de interés" aria-label="Abrir enlace de interés">🔗</a>` : ''}
+        ${bookingUrl ? `<a href="${attr(bookingUrl)}" target="_blank" rel="noopener noreferrer" title="Abrir enlace de reserva o entradas" aria-label="Abrir enlace de reserva o entradas">🎟️</a>` : ''}
+      </div>` : ''}
       <div class="activity-badges">
-        ${activity.price ? `<span class="badge linked">${formatMoney(activity.price, activity.currency)}</span>` : ''}
         ${activity.todoId ? '<span class="badge warning">TODO vinculado</span>' : ''}
         ${activity.reservationStatus !== 'idea' ? `<span class="badge ${activity.reservationStatus === 'paid' ? 'success' : 'warning'}">${RESERVATION_LABELS[activity.reservationStatus]}</span>` : ''}
       </div>
@@ -448,6 +453,7 @@ function bindViewEvents() {
   document.querySelectorAll('.add-day-activity').forEach((button) => button.addEventListener('click', () => openActivityModal(null, button.dataset.date, button.dataset.alternative === '1')));
   bindItineraryDrag();
   document.querySelectorAll('.activity-card').forEach((card) => card.addEventListener('click', (event) => {
+    if (event.target.closest('.activity-links')) return;
     if (!card.classList.contains('dragging')) openActivityModal(findActivity(card.dataset.id));
   }));
 
