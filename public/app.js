@@ -210,7 +210,7 @@ function renderDashboard() {
         <div class="panel-header"><div><h2>Próximas actividades</h2><p>Primeros planes del itinerario.</p></div><button class="button small ghost" data-go="itinerary">Ver planning</button></div>
         <div class="quick-list">
           ${nextActivities.length ? nextActivities.map((activity) => `
-            <button class="quick-item activity-quick" data-id="${activity.id}" style="border-left:0;border-right:0;border-top:0;background:transparent;width:100%;text-align:left">
+            <button class="quick-item activity-quick" data-id="${activity.id}">
               <span class="quick-icon">${activityIcon(activity.type)}</span>
               <span><strong>${escapeHTML(activity.title)}</strong><small>${formatDate(activity.date, { year: false })}${activity.startTime ? ` · ${activity.startTime}` : ''}</small></span>
             </button>`).join('') : '<div class="empty-zone">Todavía no hay actividades futuras.</div>'}
@@ -220,7 +220,7 @@ function renderDashboard() {
         <div class="panel-header"><div><h2>Pendientes prioritarios</h2><p>Lo que conviene resolver primero.</p></div><button class="button small ghost" data-go="todos">Ver TODO</button></div>
         <div class="quick-list">
           ${pendingTodos.length ? pendingTodos.map((todo) => `
-            <button class="quick-item todo-quick" data-id="${todo.id}" style="border-left:0;border-right:0;border-top:0;background:transparent;width:100%;text-align:left">
+            <button class="quick-item todo-quick quick-item-button" data-id="${todo.id}">
               <span class="quick-icon">${priorityIcon(todo.priority)}</span>
               <span><strong>${escapeHTML(todo.title)}</strong><small>${todo.dueDate ? `Antes del ${formatDate(todo.dueDate)}` : 'Sin fecha límite'}${todo.activityTitle ? ` · ${escapeHTML(todo.activityTitle)}` : ''}</small></span>
             </button>`).join('') : '<div class="empty-zone">No quedan tareas pendientes.</div>'}
@@ -369,7 +369,7 @@ function todoCard(todo) {
       <div class="todo-title-row">
         <input type="checkbox" class="todo-complete" data-id="${todo.id}" ${todo.completed ? 'checked' : ''} aria-label="Completar TODO">
         <h4>${escapeHTML(todo.title)}</h4>
-        <button class="icon-button edit-todo" data-id="${todo.id}" style="width:30px;height:30px;font-size:1rem">⋯</button>
+        <button class="icon-button edit-todo icon-button-small" data-id="${todo.id}">⋯</button>
       </div>
       ${todo.details ? `<p>${escapeHTML(todo.details)}</p>` : ''}
       ${todo.checklist.length ? `<div class="checklist">${todo.checklist.map((item) => `<label class="${item.completed ? 'done' : ''}"><input type="checkbox" class="todo-item-toggle" data-id="${item.id}" ${item.completed ? 'checked' : ''}><span>${escapeHTML(item.text)}</span></label>`).join('')}</div>` : ''}
@@ -421,7 +421,7 @@ function packingList(items) {
     <div class="packing-item ${item.packed ? 'packed' : ''}">
       <input type="checkbox" class="packing-toggle" data-id="${item.id}" ${item.packed ? 'checked' : ''}>
       <span>${escapeHTML(item.name)}${item.quantity > 1 ? ` ×${item.quantity}` : ''}<small>${escapeHTML(item.category)}${item.notes ? ` · ${escapeHTML(item.notes)}` : ''}</small></span>
-      <button class="icon-button edit-packing" data-id="${item.id}" style="width:28px;height:28px;font-size:.9rem">⋯</button>
+      <button class="icon-button edit-packing icon-button-small" data-id="${item.id}">⋯</button>
     </div>`).join('') : '<div class="empty-zone">Lista vacía</div>'}</div>`;
 }
 
@@ -698,7 +698,7 @@ async function deleteExpenseAction(id) {
 
 function checklistRows(items = []) {
   const list = items.length ? items : [{ text: '', completed: false }];
-  return list.map((item) => `<div class="dynamic-row"><input type="checkbox" class="checklist-completed" ${item.completed ? 'checked' : ''}><input type="text" class="checklist-text" value="${attr(item.text)}" placeholder="Ej. Comprar la entrada"><button type="button" class="icon-button remove-checklist" style="font-size:1rem">×</button></div>`).join('');
+  return list.map((item) => `<div class="dynamic-row"><input type="checkbox" class="checklist-completed" ${item.completed ? 'checked' : ''}><input type="text" class="checklist-text" value="${attr(item.text)}" placeholder="Ej. Comprar la entrada"><button type="button" class="icon-button remove-checklist">×</button></div>`).join('');
 }
 
 function openTodoModal(todo = null) {
