@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "verificationCommands": [
+    {
+      "id": "syntax-server",
+      "executable": "node",
+      "args": ["--check", "server.js"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "syntax-app",
+      "executable": "node",
+      "args": ["--check", "src/app.js"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "syntax-database",
+      "executable": "node",
+      "args": ["--check", "src/database.js"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "syntax-repository",
+      "executable": "node",
+      "args": ["--check", "src/repository.js"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "syntax-public-app",
+      "executable": "node",
+      "args": ["--check", "public/app.js"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "tests",
+      "executable": "node",
+      "args": ["--test"],
+      "timeoutMs": 120000
+    }
+  ]
+}

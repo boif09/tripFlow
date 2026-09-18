@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "packageName": "dev-orchestrator",
+  "packageVersion": "0.1.0",
+  "source": {
+    "kind": "local-package",
+    "artifactSha256": "4a28248922baf7ce1edf579f65196f3a117b74ae243a7d31ce9e11fff36c7754"
+  }
+}
