@@ -251,7 +251,7 @@ function renderItinerary() {
     ? ((new Date(`${dates[0]}T00:00:00`).getDay() + 6) % 7) + 1
     : 1;
   return `
-    ${pageHeader('Itinerario', 'Arrastra los planes entre días o hacia la zona de planes alternativos.', '<button class="button primary" id="addActivity">+ Añadir actividad</button>')}
+    ${pageHeader('Itinerario', 'Arrastra los planes entre días o hacia la zona de planes alternativos.', '<button class="button primary" id="importItinerary">📥 Importar itinerario</button><button class="button primary" id="addActivity">+ Añadir actividad</button>')}
     <div class="itinerary-wrap">
       <div class="itinerary-weekdays" aria-hidden="true">
         ${['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
@@ -450,6 +450,7 @@ function bindViewEvents() {
   document.querySelectorAll('.todo-quick').forEach((button) => button.addEventListener('click', () => openTodoModal(findTodo(button.dataset.id))));
 
   document.getElementById('addActivity')?.addEventListener('click', () => openActivityModal());
+  document.getElementById('importItinerary')?.addEventListener('click', () => openImportItineraryModal());
   document.querySelectorAll('.add-day-activity').forEach((button) => button.addEventListener('click', () => openActivityModal(null, button.dataset.date, button.dataset.alternative === '1')));
   bindItineraryDrag();
   document.querySelectorAll('.activity-card').forEach((card) => card.addEventListener('click', (event) => {
@@ -823,6 +824,120 @@ function openResourceModal(resource = null) {
       if (!confirm('¿Eliminar esta información?')) return;
       await api(`/resources/${resource.id}`, { method: 'DELETE' }); modal.close(); await refreshTrip(); toast('Información eliminada.');
     } : null,
+  });
+}
+
+function openImportItineraryModal() {
+  const trip = state.bundle.trip;
+  let selectedFile = null;
+  let parsedData = null;
+  let preview = null;
+
+  const updatePreview = () => {
+    if (!selectedFile || !parsedData) {
+      preview = '<p class="muted">Selecciona un archivo para ver preview</p>';
+      return;
+    }
+    const activities = parsedData.activities?.length || 0;
+    const expenses = parsedData.expenses?.length || 0;
+    const todos = parsedData.todos?.length || 0;
+    preview = `
+      <div class="import-preview">
+        <p><strong>✓ JSON válido</strong></p>
+        <ul>
+          <li>${activities} ${activities === 1 ? 'actividad' : 'actividades'}</li>
+          <li>${expenses} ${expenses === 1 ? 'gasto' : 'gastos'}</li>
+          <li>${todos} ${todos === 1 ? 'TODO' : 'TODOs'}</li>
+        </ul>
+      </div>
+    `;
+  };
+
+  openModal({
+    eyebrow: 'Itinerario',
+    title: 'Importar itinerario desde JSON',
+    body: `<div class="form-grid">
+      <div class="form-section"><h3>1. Descargar plantilla</h3></div>
+      <p>Descarga la plantilla JSON, complétala en ChatGPT y luego cargala aquí.</p>
+      <button type="button" id="downloadTemplate" class="button secondary" style="width:100%">📥 Descargar template-itinerario.json</button>
+
+      <div class="form-section" style="margin-top:1.5rem"><h3>2. Cargar archivo</h3></div>
+      <p><strong style="color:#d32f2f">⚠️ Esto eliminará TODOS los planes, gastos y TODOs actuales</strong></p>
+      <div class="form-field">
+        <label for="importFile">Archivo JSON</label>
+        <input type="file" id="importFile" accept=".json" />
+      </div>
+      <div id="previewArea" class="form-section">${preview || '<p class="muted">Carga un archivo para ver preview</p>'}</div>
+    </div>`,
+    onSave: async (form) => {
+      if (!parsedData || !selectedFile) {
+        alert('Por favor, carga un archivo JSON válido.');
+        return;
+      }
+      if (!confirm(`¿Eliminar TODO el itinerario actual (${state.bundle.activities.length} planes) y cargar ${parsedData.activities?.length || 0} nuevos?\n\nEsta acción no se puede deshacer.`)) return;
+
+      try {
+        const response = await api(`/trips/${trip.id}/import-itinerary`, {
+          method: 'POST',
+          body: JSON.stringify(parsedData),
+        });
+        modal.close();
+        await refreshTrip();
+        toast(`Itinerario importado: ${response.created.activities} actividades, ${response.created.expenses} gastos, ${response.created.todos} TODOs.`);
+      } catch (error) {
+        alert(`Error al importar: ${error.message}`);
+      }
+    },
+    saveLabel: 'Cargar itinerario',
+  });
+
+  document.getElementById('downloadTemplate')?.addEventListener('click', async () => {
+    try {
+      const basePath = getBasePath();
+      const url = basePath === '/' ? '/api/template-itinerary.json' : `${basePath}/api/template-itinerary.json`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const blob = await response.blob();
+      const objUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = objUrl;
+      link.download = 'template-itinerario.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(objUrl);
+      toast('Template descargado');
+    } catch (error) {
+      alert(`Error al descargar: ${error.message}`);
+    }
+  });
+
+  document.getElementById('importFile')?.addEventListener('change', (event) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      selectedFile = null;
+      parsedData = null;
+      updatePreview();
+      document.getElementById('previewArea').innerHTML = preview;
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        selectedFile = file;
+        parsedData = JSON.parse(e.target.result);
+        updatePreview();
+        document.getElementById('previewArea').innerHTML = preview;
+      } catch (error) {
+        selectedFile = null;
+        parsedData = null;
+        alert(`Error al leer JSON: ${error.message}`);
+        event.target.value = '';
+        document.getElementById('previewArea').innerHTML = '<p class="error">⚠️ JSON inválido</p>';
+      }
+    };
+    reader.readAsText(file);
   });
 }
 

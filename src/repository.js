@@ -824,3 +824,193 @@ export function deleteResource(db, resourceId) {
   db.prepare('DELETE FROM resources WHERE id = ?').run(resource.id);
   return { deleted: true };
 }
+
+const VALID_ACTIVITY_TYPES = new Set(['activity', 'visit', 'nature', 'flight', 'train', 'transport', 'hotel', 'food']);
+const VALID_EXPENSE_CATEGORIES = new Set(['flights', 'accommodation', 'transport', 'food', 'activities', 'insurance', 'shopping', 'other']);
+
+export function importItinerary(db, tripId, data) {
+  const trip = getTripOrThrow(db, tripId);
+
+  assert(data && typeof data === 'object', 'Los datos deben ser un objeto JSON válido.');
+  assert(Array.isArray(data.activities), 'Las actividades deben ser un array.');
+  assert(data.activities.length > 0, 'Debe haber al menos una actividad.');
+
+  const activities = data.activities || [];
+  const expenses = data.expenses || [];
+  const todos = data.todos || [];
+
+  validateActivities(activities, trip);
+  validateExpenses(expenses);
+  validateTodos(todos);
+
+  return withTransaction(db, () => {
+    db.prepare('DELETE FROM todos WHERE trip_id = ?').run(trip.id);
+    db.prepare('DELETE FROM expenses WHERE trip_id = ?').run(trip.id);
+    db.prepare('DELETE FROM activities WHERE trip_id = ?').run(trip.id);
+
+    const createdActivities = [];
+    for (const actData of activities) {
+      const actId = insertActivity(db, trip, actData);
+      createdActivities.push({ id: actId, title: actData.title });
+    }
+
+    const createdExpenses = [];
+    for (const expData of expenses) {
+      const expId = insertExpense(db, trip, expData, createdActivities);
+      if (expId) createdExpenses.push(expId);
+    }
+
+    const createdTodos = [];
+    for (const todoData of todos) {
+      const todoId = insertTodo(db, trip, todoData, createdActivities);
+      createdTodos.push(todoId);
+    }
+
+    return {
+      success: true,
+      created: {
+        activities: createdActivities.length,
+        expenses: createdExpenses.length,
+        todos: createdTodos.length,
+      },
+    };
+  });
+}
+
+function validateActivities(activities, trip) {
+  activities.forEach((act, idx) => {
+    assert(act && typeof act === 'object', `Actividad ${idx} no es un objeto válido.`);
+    const date = validIsoDate(act.date, `Fecha de actividad ${idx}`, true);
+    ensureDateWithinTrip(trip, date);
+    const title = requiredText(act.title, `Título de actividad ${idx}`);
+    if (act.startTime) validTime(act.startTime);
+    if (act.endTime) validTime(act.endTime);
+    if (act.type) assert(VALID_ACTIVITY_TYPES.has(act.type), `Tipo inválido en actividad ${idx}: ${act.type}`);
+    if (act.reservationStatus) assert(VALID_RESERVATION_STATUSES.has(act.reservationStatus), `Estado inválido en actividad ${idx}: ${act.reservationStatus}`);
+  });
+}
+
+function validateExpenses(expenses) {
+  expenses.forEach((exp, idx) => {
+    assert(exp && typeof exp === 'object', `Gasto ${idx} no es un objeto válido.`);
+    validIsoDate(exp.date, `Fecha de gasto ${idx}`, true);
+    const amount = moneyToCents(exp.amount);
+    assert(amount > 0, `Gasto ${idx} debe tener monto positivo.`);
+    if (exp.category) assert(VALID_EXPENSE_CATEGORIES.has(exp.category), `Categoría inválida en gasto ${idx}: ${exp.category}`);
+    const desc = requiredText(exp.description, `Descripción de gasto ${idx}`);
+  });
+}
+
+function validateTodos(todos) {
+  todos.forEach((todo, idx) => {
+    assert(todo && typeof todo === 'object', `TODO ${idx} no es un objeto válido.`);
+    const title = requiredText(todo.title, `Título de TODO ${idx}`);
+    if (todo.priority) assert(VALID_PRIORITIES.has(todo.priority), `Prioridad inválida en TODO ${idx}: ${todo.priority}`);
+    if (todo.dueDate) validIsoDate(todo.dueDate, `Vencimiento de TODO ${idx}`);
+    if (Array.isArray(todo.subtasks)) {
+      todo.subtasks.forEach((sub, sidx) => {
+        assert(sub && typeof sub === 'object', `Subtarea ${sidx} de TODO ${idx} no es válida.`);
+        requiredText(sub.text, `Texto de subtarea ${sidx} de TODO ${idx}`);
+      });
+    }
+  });
+}
+
+function insertActivity(db, trip, actData) {
+  const date = validIsoDate(actData.date, 'Fecha', true);
+  const title = requiredText(actData.title, 'Título');
+  const maxSort = db.prepare('SELECT COALESCE(MAX(sort_order), -1) AS max_sort FROM activities WHERE trip_id = ? AND activity_date = ? AND is_alternative = ?')
+    .get(trip.id, date, booleanInt(actData.alternative)).max_sort;
+
+  const reservationStatus = VALID_RESERVATION_STATUSES.has(actData.reservationStatus) ? actData.reservationStatus : 'idea';
+
+  const result = db.prepare(`
+    INSERT INTO activities (
+      trip_id, activity_date, title, start_time, end_time, activity_type, location, description,
+      interest_url, booking_url, ticket_reference, reservation_status, notes, is_alternative, sort_order
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    trip.id, date, title, validTime(actData.startTime), validTime(actData.endTime),
+    optionalText(actData.type || 'activity') || 'activity', optionalText(actData.location), optionalText(actData.description),
+    optionalText(actData.interestUrl), optionalText(actData.bookingUrl), optionalText(actData.ticketReference),
+    reservationStatus, optionalText(actData.notes), booleanInt(actData.alternative), Number(maxSort) + 1
+  );
+
+  const activityId = Number(result.lastInsertRowid);
+
+  if (actData.price && moneyToCents(actData.price) > 0) {
+    mergeLinkedExpenses(db, {
+      tripId: trip.id,
+      activityId,
+      amountCents: moneyToCents(actData.price),
+      currency: optionalText(actData.currency || trip.currency).toUpperCase().slice(0, 3),
+      paid: booleanInt(actData.paid),
+      description: title,
+      category: optionalText(actData.expenseCategory || 'activities') || 'activities',
+    });
+  }
+
+  return activityId;
+}
+
+function insertExpense(db, trip, expData, activities) {
+  const date = validIsoDate(expData.date, 'Fecha', true);
+  const amountCents = moneyToCents(expData.amount);
+  const description = requiredText(expData.description, 'Descripción');
+  const category = VALID_EXPENSE_CATEGORIES.has(expData.category) ? expData.category : 'other';
+
+  let activityId = null;
+  if (expData.linkedActivityTitle) {
+    const linked = activities.find((a) => a.title === expData.linkedActivityTitle);
+    if (linked) activityId = linked.id;
+  }
+
+  const result = db.prepare(`
+    INSERT INTO expenses (trip_id, expense_date, amount_cents, category, description, paid, activity_id, currency, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+  `).run(trip.id, date, amountCents, category, description, booleanInt(expData.paid), activityId, trip.currency);
+
+  return Number(result.lastInsertRowid);
+}
+
+function insertTodo(db, trip, todoData, activities) {
+  const title = requiredText(todoData.title, 'Título');
+  const priority = VALID_PRIORITIES.has(todoData.priority) ? todoData.priority : 'normal';
+  const dueDate = validIsoDate(todoData.dueDate, 'Vencimiento');
+
+  let activityId = null;
+  if (todoData.linkedActivityTitle) {
+    const linked = activities.find((a) => a.title === todoData.linkedActivityTitle);
+    if (linked) activityId = linked.id;
+  }
+
+  const result = db.prepare(`
+    INSERT INTO todos (trip_id, title, priority, due_date, completed, activity_id, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+  `).run(trip.id, title, priority, dueDate, booleanInt(todoData.completed), activityId);
+
+  const todoId = Number(result.lastInsertRowid);
+
+  if (todoData.price && moneyToCents(todoData.price) > 0) {
+    mergeLinkedExpenses(db, {
+      tripId: trip.id,
+      todoId,
+      amountCents: moneyToCents(todoData.price),
+      currency: trip.currency,
+      paid: false,
+      description: title,
+      category: 'other',
+    });
+  }
+
+  if (Array.isArray(todoData.subtasks)) {
+    for (const sub of todoData.subtasks) {
+      db.prepare(`
+        INSERT INTO todo_items (todo_id, item_text, completed, created_at)
+        VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+      `).run(todoId, requiredText(sub.text, 'Texto de subtarea'), booleanInt(sub.completed));
+    }
+  }
+
+  return todoId;
+}

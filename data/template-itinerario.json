@@ -1,0 +1,179 @@
+{
+  "description": "Plantilla de itinerario para TripFlow",
+  "instructions": "1. Descarga esta plantilla. 2. Cópiala en ChatGPT con el prompt: 'Usando este template JSON, crea un itinerario detallado para [mis parámetros de viaje]'. 3. Carga el JSON generado en TripFlow.",
+  "activities": [
+    {
+      "date": "2026-05-30",
+      "title": "Vuelo Barcelona → Pekín",
+      "startTime": "10:55",
+      "endTime": null,
+      "type": "flight",
+      "location": "Madrid → Pekín",
+      "description": "Noche a bordo. Escala en Shanghái.",
+      "interestUrl": "",
+      "bookingUrl": "https://booking-example.com",
+      "ticketReference": "IB123456",
+      "reservationStatus": "paid",
+      "notes": "Equipaje: 2x 23kg + 10kg cabina",
+      "alternative": false,
+      "price": 379.84,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "flights"
+    },
+    {
+      "date": "2026-05-31",
+      "title": "Llegada a Pekín",
+      "startTime": "10:25",
+      "endTime": null,
+      "type": "flight",
+      "location": "Beijing Capital International Airport",
+      "description": "Recogida prevista a las 10:55 y traslado al hotel.",
+      "reservationStatus": "reserved",
+      "alternative": false
+    },
+    {
+      "date": "2026-05-31",
+      "title": "Qianmen, Dashilan y Tiananmen",
+      "startTime": null,
+      "endTime": null,
+      "type": "visit",
+      "location": "Qianmen, Beijing",
+      "description": "Dejar maletas, comer por la zona y pasear.",
+      "reservationStatus": "idea",
+      "alternative": false
+    },
+    {
+      "date": "2026-05-31",
+      "title": "Atardecer en Jingshan Park",
+      "startTime": null,
+      "endTime": null,
+      "type": "nature",
+      "location": "Jingshan Park, Beijing",
+      "reservationStatus": "idea",
+      "alternative": false
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Ciudad Prohibida",
+      "startTime": "09:00",
+      "endTime": null,
+      "type": "visit",
+      "location": "Forbidden City, Beijing",
+      "description": "Entrar por Zhongshan Park.",
+      "ticketReference": "FCP2026062",
+      "reservationStatus": "paid",
+      "alternative": false,
+      "price": 28.44,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "activities"
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Hutongs y Shichahai",
+      "type": "visit",
+      "location": "Shichahai, Beijing",
+      "reservationStatus": "idea",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Templo de los Lamas",
+      "type": "visit",
+      "location": "Yonghe Temple, Beijing",
+      "reservationStatus": "idea",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-02",
+      "title": "Templo del Cielo",
+      "type": "visit",
+      "location": "Temple of Heaven, Beijing",
+      "reservationStatus": "idea",
+      "alternative": true
+    },
+    {
+      "date": "2026-06-05",
+      "title": "Tren Zhangjiajie → Fenghuang",
+      "startTime": "17:45",
+      "endTime": "18:44",
+      "type": "train",
+      "reservationStatus": "paid",
+      "alternative": false,
+      "price": 45.00,
+      "currency": "EUR",
+      "paid": true,
+      "expenseCategory": "transport"
+    }
+  ],
+  "expenses": [
+    {
+      "date": "2026-05-30",
+      "amount": 379.84,
+      "category": "flights",
+      "description": "Vuelo Barcelona → Pekín (IB456)",
+      "paid": true,
+      "linkedActivityTitle": "Vuelo Barcelona → Pekín"
+    },
+    {
+      "date": "2026-06-02",
+      "amount": 45.00,
+      "category": "activities",
+      "description": "Entrada Ciudad Prohibida",
+      "paid": true,
+      "linkedActivityTitle": "Ciudad Prohibida"
+    },
+    {
+      "date": "2026-06-05",
+      "amount": 89.50,
+      "category": "accommodation",
+      "description": "Hotel Fenghuang Ancient Town (2 noches)",
+      "paid": true
+    },
+    {
+      "date": "2026-06-08",
+      "amount": 120.00,
+      "category": "food",
+      "description": "Comidas y cenas",
+      "paid": false
+    }
+  ],
+  "todos": [
+    {
+      "title": "Comprar seguro viaje",
+      "priority": "high",
+      "dueDate": "2026-05-15",
+      "completed": false,
+      "price": 45.00,
+      "subtasks": [
+        { "text": "Comparar precios", "completed": false },
+        { "text": "Contratar póliza", "completed": false }
+      ]
+    },
+    {
+      "title": "Reservar traslado aeropuerto",
+      "priority": "high",
+      "linkedActivityTitle": "Llegada a Pekín",
+      "completed": false
+    },
+    {
+      "title": "Sacar visado chino",
+      "priority": "urgent",
+      "dueDate": "2026-05-01",
+      "completed": false
+    },
+    {
+      "title": "Confirmar reservas hoteles",
+      "priority": "high",
+      "dueDate": "2026-05-20",
+      "completed": false
+    },
+    {
+      "title": "Cambiar moneda a CNY",
+      "priority": "normal",
+      "dueDate": "2026-05-25",
+      "completed": false
+    }
+  ]
+}

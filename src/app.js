@@ -13,6 +13,7 @@ import {
   updateActivity,
   moveActivity,
   deleteActivity,
+  importItinerary,
   createTodo,
   updateTodo,
   toggleTodoItem,
@@ -119,12 +120,14 @@ function matchRoute(pathname, method, basePath) {
 
   const definitions = [
     ['GET', /^\/health$/, 'health'],
+    ['GET', /^\/template-itinerary\.json$/, 'downloadTemplate'],
     ['GET', /^\/trips$/, 'listTrips'],
     ['POST', /^\/trips$/, 'createTrip'],
     ['GET', /^\/trips\/(\d+)$/, 'getTrip'],
     ['PUT', /^\/trips\/(\d+)$/, 'updateTrip'],
     ['DELETE', /^\/trips\/(\d+)$/, 'deleteTrip'],
     ['POST', /^\/trips\/(\d+)\/activities$/, 'createActivity'],
+    ['POST', /^\/trips\/(\d+)\/import-itinerary$/, 'importItinerary'],
     ['PUT', /^\/activities\/(\d+)$/, 'updateActivity'],
     ['PATCH', /^\/activities\/(\d+)\/move$/, 'moveActivity'],
     ['DELETE', /^\/activities\/(\d+)$/, 'deleteActivity'],
@@ -159,6 +162,12 @@ async function handleApi(req, res, db, route) {
   switch (route.name) {
     case 'health':
       return sendJson(res, 200, { ok: true, database: 'sqlite', timestamp: new Date().toISOString() });
+    case 'downloadTemplate': {
+      const templatePath = path.resolve(__dirname, '..', 'data', 'template-itinerario.json');
+      const template = JSON.parse(fs.readFileSync(templatePath, 'utf8'));
+      res.setHeader('Content-Disposition', 'attachment; filename="template-itinerario.json"');
+      return sendJson(res, 200, template);
+    }
     case 'listTrips':
       return sendJson(res, 200, listTrips(db));
     case 'createTrip':
@@ -172,6 +181,8 @@ async function handleApi(req, res, db, route) {
       return sendNoContent(res);
     case 'createActivity':
       return sendJson(res, 201, createActivity(db, route.id, body));
+    case 'importItinerary':
+      return sendJson(res, 201, importItinerary(db, route.id, body));
     case 'updateActivity':
       return sendJson(res, 200, updateActivity(db, route.id, body));
     case 'moveActivity':
