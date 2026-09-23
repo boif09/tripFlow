@@ -1006,8 +1006,8 @@ function insertTodo(db, trip, todoData, activities) {
   if (Array.isArray(todoData.subtasks)) {
     for (const sub of todoData.subtasks) {
       db.prepare(`
-        INSERT INTO todo_items (todo_id, item_text, completed, created_at)
-        VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        INSERT INTO todo_items (todo_id, item_text, completed)
+        VALUES (?, ?, ?)
       `).run(todoId, requiredText(sub.text, 'Texto de subtarea'), booleanInt(sub.completed));
     }
   }
