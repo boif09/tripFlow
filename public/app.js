@@ -893,8 +893,7 @@ function openImportItineraryModal() {
 
   document.getElementById('downloadTemplate')?.addEventListener('click', async () => {
     try {
-      const basePath = getBasePath();
-      const url = basePath === '/' ? '/api/template-itinerary.json' : `${basePath}/api/template-itinerary.json`;
+      const url = `${API_ROOT}/template-itinerary.json`;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const blob = await response.blob();
