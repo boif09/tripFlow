@@ -985,9 +985,9 @@ function insertTodo(db, trip, todoData, activities) {
   }
 
   const result = db.prepare(`
-    INSERT INTO todos (trip_id, title, priority, due_date, completed, activity_id, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-  `).run(trip.id, title, priority, dueDate, booleanInt(todoData.completed), activityId);
+    INSERT INTO todos (trip_id, title, details, priority, due_date, completed, activity_id, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+  `).run(trip.id, title, '', priority, dueDate, booleanInt(todoData.completed), activityId);
 
   const todoId = Number(result.lastInsertRowid);
 
