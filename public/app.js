@@ -956,3 +956,7 @@ window.addEventListener('keydown', (event) => {
 loadTrips().catch((error) => {
   content.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h2>No se ha podido cargar la aplicación</h2><p>${escapeHTML(error.message)}</p></div>`;
 });
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
